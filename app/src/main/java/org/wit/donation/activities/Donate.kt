@@ -1,4 +1,4 @@
-package org.wit.donation
+package org.wit.donation.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
