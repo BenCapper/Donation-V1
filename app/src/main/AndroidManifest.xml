@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Donation">
         <activity
-            android:name=".Donate"
+            android:name=".activities.Donate"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
