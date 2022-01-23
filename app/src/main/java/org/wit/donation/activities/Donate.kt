@@ -3,15 +3,21 @@ package org.wit.donation.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import org.wit.donation.R
 import org.wit.donation.databinding.ActivityDonateBinding
+import org.wit.donation.main.DonationApp
+import org.wit.donation.models.DonationModel
+import org.wit.donation.models.DonationStore
 import timber.log.Timber
 
 class Donate : AppCompatActivity() {
 
-    private lateinit var  donateLayout : ActivityDonateBinding
+    lateinit var  donateLayout : ActivityDonateBinding
+    lateinit var app: DonationApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        app = this.application as DonationApp
         donateLayout = ActivityDonateBinding.inflate(layoutInflater)
         setContentView(donateLayout.root)
         donateLayout.progressBar.max = 10000
@@ -27,12 +33,15 @@ class Donate : AppCompatActivity() {
             val amount = if (donateLayout.paymentAmount.text.isNotEmpty())
                 donateLayout.paymentAmount.text.toString().toInt() else donateLayout.amountPicker.value
             if(totalDonated >= donateLayout.progressBar.max)
-                Toast.makeText(applicationContext,"Donate Amount Exceeded!",Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext,"Donate Amount Exceeded!", Toast.LENGTH_LONG).show()
             else {
+                val paymentmethod = if(donateLayout.paymentMethod.checkedRadioButtonId == R.id.Direct)
+                    "Direct" else "Paypal"
                 totalDonated += amount
-                donateLayout.totalSoFar.text = "$$totalDonated"
+                donateLayout.totalSoFar.text = "$ $totalDonated"
                 donateLayout.progressBar.progress = totalDonated
-                Timber.i("Total Donated so far: $totalDonated")
+                app.donationsStore.create(DonationModel(paymentmethod = paymentmethod,amount = amount))
+                Timber.i("Total Donated so far $totalDonated")
             }
         }
     }
