@@ -3,13 +3,16 @@
     package="org.wit.donation">
 
     <application
-        android:name="org.wit.donation.main.DonationApp"
+        android:name=".main.DonationApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Donation">
+        <activity
+            android:name=".activities.Report"
+            android:exported="false" />
         <activity
             android:name=".activities.Donate"
             android:exported="true">
