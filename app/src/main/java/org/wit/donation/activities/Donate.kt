@@ -66,5 +66,12 @@ class Donate : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        var totalDonated = app.donationsStore.findAll().sumOf { it.amount }
+
+        donateLayout.totalSoFar.text = "$ $totalDonated"
+        donateLayout.progressBar.progress = totalDonated
+    }
 
 }
