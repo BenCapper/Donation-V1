@@ -5,12 +5,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.donation.R
+import org.wit.donation.adapters.DonationAdapter
+import org.wit.donation.databinding.ActivityReportBinding
+import org.wit.donation.main.DonationApp
 
 class Report : AppCompatActivity() {
+
+    lateinit var app: DonationApp
+    lateinit var reportLayout : ActivityReportBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report)
+        reportLayout = ActivityReportBinding.inflate(layoutInflater)
+        setContentView(reportLayout.root)
+
+        app = this.application as DonationApp
+        reportLayout.recyclerView.layoutManager = LinearLayoutManager(this)
+        reportLayout.recyclerView.adapter = DonationAdapter(app.donationsStore.findAll())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
