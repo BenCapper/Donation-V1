@@ -1,11 +1,12 @@
-package org.wit.donation
+package org.wit.donation.fragments
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
+import org.wit.donation.R
 import org.wit.donation.databinding.FragmentDonateBinding
 import org.wit.donation.main.DonationApp
 import org.wit.donation.models.DonationModel
@@ -25,6 +26,7 @@ class DonateFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         app = activity?.application as DonationApp
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -44,7 +46,7 @@ class DonateFragment : Fragment() {
             //Display the newly selected number to paymentAmount
             fragBinding.paymentAmount.setText("$newVal")
         }
-        return root;
+        return root
     }
 
     override fun onDestroyView() {
@@ -59,20 +61,29 @@ class DonateFragment : Fragment() {
         fragBinding.totalSoFar.text = "$$totalDonated"
         setButtonListener(fragBinding)
     }
-    fun setButtonListener(layout: FragmentDonateBinding) {
+    private fun setButtonListener(layout: FragmentDonateBinding) {
         layout.donateButton.setOnClickListener {
             val amount = if (layout.paymentAmount.text.isNotEmpty())
                 layout.paymentAmount.text.toString().toInt() else layout.amountPicker.value
             if(totalDonated >= layout.progressBar.max)
                 Toast.makeText(context,"Donate Amount Exceeded!", Toast.LENGTH_LONG).show()
             else {
-                val paymentmethod = if(layout.paymentMethod.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
+                val paymentMethod = if(layout.paymentMethod.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
                 totalDonated += amount
                 layout.totalSoFar.text = "$$totalDonated"
                 layout.progressBar.progress = totalDonated
-                app.donationsStore.create(DonationModel(paymentmethod = paymentmethod,amount = amount))
+                app.donationsStore.create(DonationModel(paymentmethod = paymentMethod,amount = amount))
             }
         }
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_donate, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item,
+            requireView().findNavController()) || super.onOptionsItemSelected(item)
     }
     companion object {
         @JvmStatic
