@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/donateFragment"
         android:name="org.wit.donation.fragments.DonateFragment"
-        android:label="fragment_donate"
+        android:label="@string/donate_fragment"
         tools:layout="@layout/fragment_donate" >
         <action
             android:id="@+id/action_donateFragment_to_reportFragment3"
@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/reportFragment"
         android:name="org.wit.donation.fragments.ReportFragment"
-        android:label="fragment_report"
+        android:label="@string/report_fragment"
         tools:layout="@layout/fragment_report" >
         <action
             android:id="@+id/action_reportFragment_to_donateFragment"
