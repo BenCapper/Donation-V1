@@ -15,6 +15,11 @@
             app:destination="@id/reportFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_donateFragment_to_aboutusFragment"
+            app:destination="@id/aboutusFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/reportFragment"
@@ -23,6 +28,17 @@
         tools:layout="@layout/fragment_report" >
         <action
             android:id="@+id/action_reportFragment_to_donateFragment"
+            app:destination="@id/donateFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutusFragment"
+        android:name="org.wit.donation.fragments.AboutusFragment"
+        android:label="About Us"
+        tools:layout="@layout/fragment_aboutus" >
+        <action
+            android:id="@+id/action_aboutusFragment_to_donateFragment"
             app:destination="@id/donateFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
