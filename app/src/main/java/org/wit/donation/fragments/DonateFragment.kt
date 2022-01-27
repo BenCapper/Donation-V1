@@ -51,7 +51,7 @@ class DonateFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _fragBinding = null
+
     }
 
     override fun onResume() {
